@@ -140,6 +140,10 @@ def get_file(filename, mode='r', locking=None):
     return h5py.File(filename, mode=mode, locking=locking)
 
 
+def get_filename(x):
+    return x.file.filename
+
+
 def is_file(x):
     return get_type_id(x) == 'F'
 
