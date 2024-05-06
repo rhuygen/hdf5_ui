@@ -1,0 +1,53 @@
+Screen {
+    background: $background;
+}
+
+#top-level {
+}
+
+#meta-container {
+    height: 100%;
+    width: 20%;
+}
+
+#tree-view {
+    scrollbar-gutter: auto;
+    overflow: auto auto;
+    scrollbar-size-horizontal: 1;
+    width: 100w;
+    height: 70%;
+
+    #content-tree {
+        width: 100w;
+        background: $panel;
+    }
+}
+
+#attrs-container {
+    height: 30%;
+    width: 100w;
+    background: $panel;
+    overflow-x: auto;
+}
+
+#attrs-view {
+    width: auto;
+    border-top: solid $panel-lighten-2;
+    background: $panel;
+}
+
+#item-container {
+    width: 80%;
+}
+
+#item-view {
+    scrollbar-gutter: auto;
+}
+
+#image-view {
+    display: None;
+}
+
+#hk-view {
+    display: None;
+}
