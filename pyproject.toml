@@ -5,13 +5,14 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["h5tui*", "plugins*"]
+namespaces = true
 
 [tool.setuptools.package-data]
 h5tui = ["*.tcss"]
 
 [project]
 name = "h5ui"
-version = "0.1.8"
+version = "0.1.9"
 requires-python = ">=3.8"
 dynamic = ["readme"]
 keywords = ["HDF5", "Terminal"]
