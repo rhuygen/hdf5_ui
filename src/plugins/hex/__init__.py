@@ -1,13 +1,11 @@
 from typing import Union
 
 import h5py
-from rich.text import Text
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import VerticalScroll
 from textual.widget import Widget
 from textual.widgets import RichLog
-from textual.widgets import Static
 
 import h5tui.h5
 from h5tui import HDF5ItemViewer
@@ -38,7 +36,7 @@ class HexView(VerticalScroll, can_focus=True):
             rich_log = self.query_one(RichLog)
             rich_log.clear()
             data = h5tui.h5.get_data(self.item)
-            data = data.item() if data.shape == () else data
+            data = data.item() if data.shape == () else data.tobytes()
 
             for idx in range(0, len(data), bytes_per_line):
                 prefix = f"[b]0x{idx:04X}[/]"
@@ -68,7 +66,8 @@ class HexViewer(HDF5ItemViewer):
     @staticmethod
     def can_handle(item: Union[h5py.File, h5py.Group, h5py.Dataset]) -> bool:
         if h5tui.h5.is_dataset(item):
-            return True
+            data = h5tui.h5.get_data(item)
+            return True if data.ndim == 1 else False
         return False
 
     @staticmethod

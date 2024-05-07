@@ -68,13 +68,17 @@ class ImageViewer(HDF5ItemViewer):
 
     @staticmethod
     def can_handle(item: Union[h5py.File, h5py.Group, h5py.Dataset]) -> bool:
-        return True if h5tui.h5.is_file(item) else False
+        if h5tui.h5.is_dataset(item):
+            data = h5tui.h5.get_data(item)
+            if data.ndim == 2:
+                return True
+        return False
 
     @staticmethod
     def get_widget(item: Union[h5py.File, h5py.Group, h5py.Dataset]) -> Widget:
         # First create an Image from the HDF5 data
-        HERE = Path(__file__).parent
-        image = Image.open(HERE / "../../../tests/data/test_pattern_01.png")
+        data = h5tui.h5.get_data(item)
+        image = Image.fromarray(data)
         return ImageView(image)
 
     def get_id(self):
