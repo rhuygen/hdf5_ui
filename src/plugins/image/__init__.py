@@ -70,7 +70,7 @@ class ImageViewer(HDF5ItemViewer):
     def can_handle(item: Union[h5py.File, h5py.Group, h5py.Dataset]) -> bool:
         if h5tui.h5.is_dataset(item):
             data = h5tui.h5.get_data(item)
-            if data.ndim == 2:
+            if data.ndim == 2 or data.ndim == 3:
                 return True
         return False
 

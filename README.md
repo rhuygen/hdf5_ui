@@ -3,7 +3,7 @@
 This App is developed with [Textual](https://www.textualize.io).
 
 ![](https://raw.githubusercontent.com/rhuygen/hdf5_ui/develop/docs/images/h5tui_ex01.png)
-![](https://raw.githubusercontent.com/rhuygen/hdf5_ui/develop/docs/images/h5tui_ex02.png)
+![](https://raw.githubusercontent.com/rhuygen/hdf5_ui/develop/docs/images/h5tui_ex03.png)
 
 # Feature
 
