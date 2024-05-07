@@ -269,7 +269,7 @@ class HDF5Browser(App):
 
         super().__init__()
 
-        self.plugins = load_plugins("item.view")
+        self.plugins = load_plugins("h5ui.item.view")
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -559,7 +559,7 @@ def main():
     if len(argv) > 1 and Path(argv[1]).exists():
         app.path = Path(argv[1])
 
-    plugins = load_plugins('item.view')
+    plugins = load_plugins('h5ui.item.view')
     app.run()
 
 
