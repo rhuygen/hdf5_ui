@@ -2,7 +2,7 @@
 
 This App is developed with [Textual](https://www.textualize.io).
 
-![]()
+![](https://raw.githubusercontent.com/rhuygen/hdf5_ui/develop/docs/images/hdf5tui_ex01.png)
 
 # License
 
