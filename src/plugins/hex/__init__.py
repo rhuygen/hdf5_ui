@@ -1,6 +1,7 @@
 from typing import Union
 
 import h5py
+from textual import events
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import VerticalScroll
@@ -11,7 +12,9 @@ import h5tui.h5
 from h5tui import HDF5ItemViewer
 
 
-class HexView(VerticalScroll, can_focus=True):
+# can_focus_children=False to prevent the RichLog widget from also getting the focus.
+# can_focus=True to allow HexView to get focus
+class HexView(VerticalScroll, can_focus=True, can_focus_children=False):
 
     BINDINGS = [
         Binding('a', 'ascii', "ASCII"),
@@ -27,6 +30,9 @@ class HexView(VerticalScroll, can_focus=True):
 
     def on_mount(self):
         self._populate_richlog(in_hex=True)
+
+    def _on_focus(self, event: events.Focus) -> None:
+        ...
 
     def _populate_richlog(self, in_hex: bool):
         line_length = 120

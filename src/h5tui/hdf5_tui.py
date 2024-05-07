@@ -65,6 +65,7 @@ class Views(Vertical):
     @on(TabbedContent.TabActivated)
     def report(self, event: TabbedContent.TabActivated):
         self.log(f"TAB {event.pane.id} is now active.")
+        # event.pane.focus()
 
     def watch_item(self):
 
