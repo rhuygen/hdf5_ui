@@ -18,5 +18,5 @@ class HDF5ItemViewer(ABC):
         ...
 
     @abstractmethod
-    def get_id(self):
+    def get_id(self) -> str:
         ...

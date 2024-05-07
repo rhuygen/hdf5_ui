@@ -12,7 +12,7 @@ h5tui = ["*.tcss"]
 
 [project]
 name = "h5ui"
-version = "0.1.9"
+version = "0.1.10"
 requires-python = ">=3.8"
 dynamic = ["readme"]
 keywords = ["HDF5", "Terminal"]
@@ -43,7 +43,7 @@ rel = ["build", "twine"]
 [project.urls]
 repository = "https://github.com/rhuygen/hdf5_ui"
 
-[project.entry-points."item.view"]
+[project.entry-points."h5ui.item.view"]
 hex-view = 'plugins.hex:HexViewer'
 image-view = 'plugins.image:ImageViewer'
 
