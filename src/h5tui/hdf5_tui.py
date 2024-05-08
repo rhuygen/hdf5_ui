@@ -87,7 +87,7 @@ class Views(Vertical):
             if plugin.can_handle(item):
                 self.app.log(f"{plugin} can handle {type(self.item)}")
                 widget = plugin.get_widget(item)
-                tab_id = f"{plugin().get_id()}-tab"
+                tab_id = f"{plugin.get_id()}-tab"
                 tab_content.add_pane(TabPane(plugin_name, widget, id=tab_id))
                 tab_content.show_tab(tab_id)
                 tab_content.active = tab_id

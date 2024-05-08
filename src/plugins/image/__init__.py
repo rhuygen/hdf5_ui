@@ -63,9 +63,6 @@ class ImageView(TextualImageViewer, can_focus=True):
 
 
 class ImageViewer(HDF5ItemViewer):
-    def __init__(self):
-        self._id = "image-view"
-
     @staticmethod
     def can_handle(item: Union[h5py.File, h5py.Group, h5py.Dataset]) -> bool:
         if h5tui.h5.is_dataset(item):
@@ -81,5 +78,6 @@ class ImageViewer(HDF5ItemViewer):
         image = Image.fromarray(data)
         return ImageView(image)
 
-    def get_id(self):
-        return self._id
+    @staticmethod
+    def get_id() -> str:
+        return "image-view"

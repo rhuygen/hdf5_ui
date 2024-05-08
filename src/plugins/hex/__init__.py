@@ -90,9 +90,6 @@ class HexView(VerticalScroll, can_focus=False, can_focus_children=True):
 
 
 class HexViewer(HDF5ItemViewer):
-    def __init__(self):
-        self._id = 'hex-view'
-
     @staticmethod
     def can_handle(item: Union[h5py.File, h5py.Group, h5py.Dataset]) -> bool:
         if h5tui.h5.is_dataset(item):
@@ -104,5 +101,6 @@ class HexViewer(HDF5ItemViewer):
     def get_widget(item: Union[h5py.File, h5py.Group, h5py.Dataset]) -> Widget:
         return HexView(item)
 
-    def get_id(self) -> str:
-        return self._id
+    @staticmethod
+    def get_id() -> str:
+        return "hex-view"

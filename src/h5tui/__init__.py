@@ -17,6 +17,7 @@ class HDF5ItemViewer(ABC):
     def get_widget(item: Union[h5py.File, h5py.Group, h5py.Dataset]) -> Widget:
         ...
 
+    @staticmethod
     @abstractmethod
-    def get_id(self) -> str:
+    def get_id() -> str:
         ...

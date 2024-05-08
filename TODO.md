@@ -6,3 +6,4 @@
 - [x] add hex viewer widget
 - [ ] add markdown viewer for datasets that contain markdown text (maybe leave this as a plugin?)
 - [ ] configuration options, e.g. which plugins to use/enable
+- [ ] add a help screen and also a --help app argument
