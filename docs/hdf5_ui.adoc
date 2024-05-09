@@ -7,7 +7,7 @@ This documentation is for `h5ui` ≥ v0.1.10. image:images/github.png[link=https
 
 == What is `h5ui`?
 
-This is a small project written in Python and making use of the wonderful https://github.com/Textualize/textual[Textual] library that is being developed by https://www.textualize.io[Texualize].
+This is a small project written in Python and making use of the wonderful https://github.com/Textualize/textual[Textual] library that is being developed by https://www.textualize.io[Textualize].
 
 image::images/h5tui_ex01.png[]
 
