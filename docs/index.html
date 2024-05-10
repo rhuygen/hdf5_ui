@@ -459,7 +459,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_what_is_h5ui">What is <code>h5ui</code>?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a small project written in Python and making use of the wonderful <a href="https://github.com/Textualize/textual">Textual</a> library that is being developed by <a href="https://www.textualize.io">Texualize</a>.</p>
+<p>This is a small project written in Python and making use of the wonderful <a href="https://github.com/Textualize/textual">Textual</a> library that is being developed by <a href="https://www.textualize.io">Textualize</a>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -591,12 +591,15 @@ image-view = 'plugins.image:ImageViewer'</pre>
 <div class="paragraph">
 <p>I usually use <code>&#8230;&#8203;Viewer</code> as the entrypoint and <code>&#8230;&#8203;View</code> as the name for the widget.</p>
 </div>
+<div class="paragraph">
+<p>One more thing&#8230;&#8203;. note that the default plugins are located in a folder called <code>plugins</code>. It is not necessary for your project to put your plugins in a folder with the same name, but if you do, note that the <code>plugins</code> folder is a <em>namespace</em> and not a regular Python package, i.e. it doesn&#8217;t contain an <code>__init__.py</code> module. Don&#8217;t add such an init file or your plugins won&#8217;t be loaded.</p>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-08 21:51:00 +0200
+Last updated 2024-05-10 11:27:55 +0200
 </div>
 </div>
 </body>

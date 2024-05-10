@@ -94,3 +94,6 @@ When the plugin can handle the item data, the app requests the id of the plugin 
 The last thing is to request the Widget that will be added in the tab pane with the id as title. The `get_widget()` method receives the same item argument as was passed into the `can_handle()` method. In the case of the HexViewer, the widget is named `HexView` and is a `VerticalScroll` that serves a `RichLog` widget. The widget is populated in the `on_mount()` method.
 
 I usually use `...Viewer` as the entrypoint and `...View` as the name for the widget.
+
+
+One more thing.... note that the default plugins are located in a folder called `plugins`. It is not necessary for your project to put your plugins in a folder with the same name, but if you do, note that the `plugins` folder is a _namespace_ and not a regular Python package, i.e. it doesn't contain an `\\__init__.py` module. Don't add such an init file or your plugins won't be loaded.
