@@ -22,6 +22,7 @@ from textual import log
 from textual import on
 from textual.app import App
 from textual.app import ComposeResult
+from textual.binding import Binding
 from textual.containers import Horizontal
 from textual.containers import ScrollableContainer
 from textual.containers import Vertical
@@ -31,7 +32,6 @@ from textual.screen import ModalScreen
 from textual.widget import Widget
 from textual.widgets import Footer
 from textual.widgets import Header
-from textual.widgets import Label
 from textual.widgets import Static
 from textual.widgets import TabPane
 from textual.widgets import TabbedContent
@@ -39,7 +39,6 @@ from textual.widgets import Tree
 
 from . import h5
 from .plugin import load_plugins
-
 
 NUMERALS = " ⅠⅡⅢⅣⅤⅥ"
 
@@ -260,6 +259,7 @@ class HDF5Browser(App):
         ("q", "quit", "Quit"),
         ("n", "next_file", "Next"),
         ("p", "previous_file", "Previous"),
+        Binding('escape', 'cancel_reload', "Cancel", show=False),
     ]
 
     path = var[Optional[Path]](None)
@@ -333,6 +333,11 @@ class HDF5Browser(App):
             self.path = path
             self.log(f"{path = }")
             await self.on_mount()
+
+    async def action_cancel_reload(self):
+        workers = self.app.workers
+        workers.cancel_all()
+
 
 class WarningModal(ModalScreen[None]):
 
