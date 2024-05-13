@@ -36,6 +36,8 @@ from textual.widgets import Static
 from textual.widgets import TabPane
 from textual.widgets import TabbedContent
 from textual.widgets import Tree
+from textual_fspicker import FileOpen
+from textual_fspicker import Filters
 
 from . import h5
 from .plugin import load_plugins
@@ -257,12 +259,14 @@ class HDF5Browser(App):
     CSS_PATH = "hdf5_tui.tcss"
     BINDINGS = [
         ("q", "quit", "Quit"),
+        ("o", "open_file", "Open File..."),
         ("n", "next_file", "Next"),
         ("p", "previous_file", "Previous"),
         Binding('escape', 'cancel_reload', "Cancel", show=False),
     ]
 
     path = var[Optional[Path]](None)
+    saved_path = var[Optional[Path]](None)
     previous_path = var[Optional[Path]](None)
 
     def __init__(self):
@@ -289,6 +293,7 @@ class HDF5Browser(App):
 
         try:
             await toc.go(self.path)
+            self.saved_path = self.path.parent
         except FileNotFoundError:
             await self.push_screen(WarningModal(message=f"Unable to load {self.path!r}"))
             self.path = self.previous_path
@@ -333,6 +338,23 @@ class HDF5Browser(App):
             self.path = path
             self.log(f"{path = }")
             await self.on_mount()
+
+    async def action_open_file(self) -> None:
+
+        await self.push_screen(
+            FileOpen(
+                self.saved_path or ".",
+                filters=Filters(
+                    ("HDF5", lambda p: p.suffix.lower() == ".hdf5"),
+                    ("Any", lambda _: True),
+                ),
+            ),
+            callback=self.set_selected_file
+        )
+
+    async def set_selected_file(self, path: Path | None) -> None:
+        self.path = path or self.path
+        await self.on_mount()
 
     async def action_cancel_reload(self):
         workers = self.app.workers
