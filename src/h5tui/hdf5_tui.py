@@ -68,16 +68,28 @@ class Views(Vertical):
         self.log(f"TAB {event.pane.id} is now active.")
         # event.pane.focus()
 
-    def watch_item(self):
+    def remove_added_tabs(self):
 
         tab_content = self.query_one(TabbedContent)
         # Reset the text info view as the active tab, otherwise the newly added tab that gets focus will not be shown
         # for some reason
         tab_content.active = "info-view-tab"
+
+        info_view = self.query_one("#info-view", InfoView)
+        info_view.update("")
+
         for pane_id in self.added_tabs:
             tab_content.remove_pane(pane_id)
         self.added_tabs.clear()
         tab_content.refresh()
+
+    def clear(self):
+        self.remove_added_tabs()
+
+    def watch_item(self):
+
+        tab_content = self.query_one(TabbedContent)
+        self.remove_added_tabs()
 
         if self.item is None:
             return
@@ -194,6 +206,8 @@ class TableOfContentsWidget(Widget, can_focus_children=True):
             node.add_leaf(node_label, {"item": item})
 
         root.expand()
+        tree.select_node(root)
+        tree.focus()
 
     @on(Tree.NodeHighlighted)
     def show_attributes(self, event: Tree.NodeHighlighted):
@@ -294,6 +308,8 @@ class HDF5Browser(App):
         try:
             await toc.go(self.path)
             self.saved_path = self.path.parent
+            views = self.query_one(Views)
+            views.clear()
         except FileNotFoundError:
             await self.push_screen(WarningModal(message=f"Unable to load {self.path!r}"))
             self.path = self.previous_path
