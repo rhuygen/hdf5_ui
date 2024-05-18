@@ -12,7 +12,7 @@ h5tui = ["*.tcss"]
 
 [project]
 name = "h5ui"
-version = "0.1.16"
+version = "0.1.17"
 requires-python = ">=3.8"
 dynamic = ["readme"]
 keywords = ["HDF5", "Terminal"]
