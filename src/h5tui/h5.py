@@ -169,6 +169,10 @@ def has_attributes(x):
     return len(x.attrs) > 0
 
 
+def get_attributes(x):
+    return [x.attrs[a] for a in x.attrs]
+
+
 def show_attributes(x):
     _size = 0
 

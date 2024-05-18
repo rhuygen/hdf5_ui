@@ -118,10 +118,10 @@ class Views(Vertical):
                 item_view.update(item_to_renderable(item))
             elif h5.is_group(item):
                 self.app.log(f"it's a group! item={item}, parent={h5.get_parent(item).name}")
-                item_view.update(f"it's a group! item={item.name}")
+                item_view.update(group_to_renderable(item))
             elif h5.is_file(item):
                 self.app.log(f"it's a file! item={h5.get_filename(item)}")
-                item_view.update(f"it's a file! item={h5.get_filename(item)}")
+                item_view.update(file_to_renderable(item))
             else:
                 item_view.update(f"unknown item: {item.name}")
 
@@ -537,16 +537,52 @@ def item_to_int(item):
     return int(data)
 
 
-def item_to_renderable(item):
+def file_to_renderable(item) -> str:
     """Return a single value item as a Rich renderable."""
+    key_width = len("Attributes")
+    msg = []
+    msg.append(f"[dim]{'File name':{key_width}s}[/]: {h5.get_filename(item)}")
+    if h5.has_attributes(item):
+        msg.append(f"[dim]{'Attributes':{key_width}s}[/]: {len(h5.get_attributes(item))}")
+    return "\n".join(msg)
+
+
+def group_to_renderable(item) -> str:
+    """Return a single value item as a Rich renderable."""
+    key_width = len("Attributes")
+    msg = []
+    msg.append(f"[dim]{'Group name':{key_width}s}[/]: {item.name}")
+    if h5.has_attributes(item):
+        msg.append(f"[dim]{'Attributes':{key_width}s}[/]: {len(h5.get_attributes(item))}")
+    return "\n".join(msg)
+
+
+def item_to_renderable(item) -> str:
+    """Return a single value item as a Rich renderable."""
+    key_width = len("Attributes")
+    msg = []
     data = h5.get_data(item)
+    msg.append(f"[dim]{'Type':{key_width}s}[/]: {type(data)}")
+    if h5.has_attributes(item):
+        msg.append(f"[dim]{'Attributes':{key_width}s}[/]: {len(h5.get_attributes(item))}")
     if isinstance(data, np.ndarray):
-        data = data.item()
-    if isinstance(data, bytes):
-        data = data.decode()
-    if not is_renderable(data):
-        data = str(data)
-    return data
+        msg.append(f"[dim]{'Dimensions':{key_width}s}[/]: {data.ndim}")
+        msg.append(f"[dim]{'Shape':{key_width}s}[/]: {data.shape}")
+        if data.ndim == 0:
+            msg.append(f"[dim]{'Data':{key_width}s}[/]: {data.item()}")
+        elif data.ndim == 1:
+            msg.append(f"[dim]{'Data':{key_width}s}[/]: {np.array2string(data, separator=', ')}")
+        elif data.ndim == 2:
+            msg.append(f"[dim]{'Data':{key_width}s}[/]: {np.array2string(data, separator=', ', formatter={'all': lambda x: f'{x:.2f}'})}")
+        else:
+            msg.append(f"[dim]{'Data':{key_width}s}[/]: Higher dimensional array can not be displayed.")
+    elif isinstance(data, bytes):
+        msg.append(f"b'{data[:120]}'")
+    elif not is_renderable(data):
+        msg.append(f"{data}")
+    else:
+        msg.append(data)
+    return "\n".join(msg)
 
 
 def find_next_file(current_file: Path | str) -> Path | None:
